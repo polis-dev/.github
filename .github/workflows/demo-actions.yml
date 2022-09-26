@@ -1,0 +1,41 @@
+# View the output here: https://github.com/jakelogemann/actions/actions/workflows/demo.yml?query=branch:main
+name: "demo"
+concurrency: { group: "${{ github.workflow }}-${{ github.event_name }}" }
+permissions: 
+  contents: read
+  pull-requests: read
+  packages: write
+
+on:
+  workflow_dispatch:
+  schedule: [{ cron: "0 0 * * *" }]
+  push: { branches: ["main"] }
+  pull_request: { branches: ["main"] }
+
+jobs:
+
+  pretty-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "./.github/action/pretty-json"
+        id: "main"
+        with: 
+          name: "Event Context"
+          data: "${{ toJSON(github.event) }}"
+      - {name: "print output.", run: "jq -CSer '.' <<'EOF'\n${{ toJSON(steps.main) }}\nEOF\n"}
+
+  print-context:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - {uses: "./.github/actions/print-context", id: "main"}
+      - {name: "print output.", run: "jq -CSer '.' <<'EOF'\n${{ toJSON(steps.main) }}\nEOF\n"}
+
+  runner-dr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - {uses: "./.github/actions/runner-dr", id: "main"}
+      - name: "print output."
+        run: "jq -CSer '.' <<'EOF'\n${{ toJSON(steps.main.outputs) }}\nEOF\n"

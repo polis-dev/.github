@@ -1,0 +1,15 @@
+name: "pretty-json"
+description: Just pretty-prints arbitrary JSON data, nicely sorted w/ jq...
+inputs:
+  name:
+    required: false
+    description: "Name of the output (for display purposes only)."
+    default: "output"
+  data:
+    required: false
+    description: "JSON Data to be nicely printed with JQ."
+    default: "null"
+runs:
+  using: "composite"
+  steps:
+    - {run: "#${{inputs.name}} as Pretty JSON\njq -CSer '.' <<'EOF'\n${{ toJSON(inputs.data) }}\nEOF\n", shell: "bash"}

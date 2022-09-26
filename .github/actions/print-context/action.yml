@@ -1,0 +1,11 @@
+name: "print-context"
+description: Just dumps current workflow context, nicely sorted w/ jq...
+runs:
+  using: "composite"
+  steps:
+    - {run: "#pretty-print inputs.*\njq -SreC '.' <<'__JSON_DATA__'\n${{ toJSON(inputs) }}\n__JSON_DATA__\n", shell: bash}
+    - {run: "#pretty-print job.*\n   jq -SreC '.' <<'__JSON_DATA__'\n${{ toJSON(job) }}\n__JSON_DATA__\n", shell: bash}
+    - {run: "#pretty-print env.*\n   jq -SreC '.' <<'__JSON_DATA__'\n${{ toJSON(env) }}\n__JSON_DATA__\n", shell: bash}
+    - {run: "#pretty-print steps.*\n jq -SreC '.' <<'__JSON_DATA__'\n${{ toJSON(steps) }}\n__JSON_DATA__\n", shell: bash}
+    - {run: "#pretty-print runner.*\njq -SreC '.' <<'__JSON_DATA__'\n${{ toJSON(runner) }}\n__JSON_DATA__\n", shell: bash}
+    - {run: "#pretty-print github.*\njq -SreC '.' <<'__JSON_DATA__'\n${{ toJSON(github) }}\n__JSON_DATA__\n", shell: bash}

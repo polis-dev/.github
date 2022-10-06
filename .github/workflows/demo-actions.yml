@@ -17,7 +17,7 @@ jobs:
   pretty-json:
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3.1.0"
       - uses: "./.github/actions/pretty-json"
         id: "main"
         with: 
@@ -28,14 +28,14 @@ jobs:
   print-context:
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3.1.0"
       - {uses: "./.github/actions/print-context", id: "main"}
       - {name: "print output.", run: "jq -CSer '.' <<'EOF'\n${{ toJSON(steps.main) }}\nEOF\n"}
 
   runner-dr:
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v2"
+      - uses: "actions/checkout@v3.1.0"
       - {uses: "./.github/actions/runner-dr", id: "main"}
       - name: "print output."
         run: "jq -CSer '.' <<'EOF'\n${{ toJSON(steps.main.outputs) }}\nEOF\n"

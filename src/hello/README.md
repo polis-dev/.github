@@ -7,7 +7,7 @@ A hello world feature
 
 ```json
 "features": {
-    "ghcr.io/devcontainers/feature-starter/hello:1": {
+    "ghcr.io/polis-dev/devc/hello:1": {
         "version": "latest"
     }
 }

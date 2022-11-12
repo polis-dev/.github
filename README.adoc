@@ -1,0 +1,201 @@
+
+:description: A summary of this project.
+:author: Jake Logemann
+:email: jake@polis.dev
+
+// Table of Contents
+:toc: preamble
+:toclevels: 4
+:toc-title: Contents
+
+// Icons
+:icons: font
+:new: &#127381;
+:breaking: &#10071;
+
+:showtitle:
+:hide-uri-scheme:
+
+// this hack makes the symbols appear properly on github...
+ifdef::env-github[]
+:tip-caption: :bulb:
+:warning-caption: :exclamation:
+:info-caption: :information_source:
+:note-caption: :memo:
+:caution-caption: :warning:
+endif::[]
+
+// project information
+:project-name: devc
+:project-repo: https://github.com/polis-dev/devc
+
+:changelog: link:CHANGELOG.adoc[CHANGELOG]
+:src: link:src/[src]
+:workflows: link:.github/workflows[Workflows]
+:devcontainer: link:.devcontainer.json[.devcontainer.json]
+:devcontainer-feature: link:https://containers.dev/implementors/features/[.devcontainer features]
+:official-repo: link:https://github.com/devcontainers/features[`devcontainers/features`]
+:devcontainer-feature-spec: link:https://containers.dev/implementors/features-distribution/[spec]
+:features-index: link:https://containers.dev/features[Features Index]
+:containers-dev: link:https://containers.dev[containers.dev]
+:devcontainers-github-io: link:https://github.com/devcontainers/devcontainers.github.io[devcontainers.github.io]
+:supporting-tools: link:https://containers.dev/supporting[supporting tools]
+:devcontainer-collection-index: link:https://github.com/devcontainers/devcontainers.github.io/blob/gh-pages/_data/collection-index.yml[collection-index.yml]
+:vscode-devcontainers: link:https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[vscode's devcontainers extension]
+:github-codespaces: link:https://github.com/features/codespaces[github's codespaces]
+:json-ref: link:https://containers.dev/implementors/features/#devcontainer-feature-json-properties[devcontainer-feature.json]
+:oci-distribution-spec: link:https://github.com/opencontainers/distribution-spec[OCI Distribution Spec]
+:official-tools: link:https://containers.dev/implementors/features/#tools
+:option-resolution: link:https://containers.dev/implementors/features/#option-resolution[option resolution]
+:versioning: link:https://containers.dev/implementors/features/#versioning[versioning]
+
+= {project-name}
+
+_Customizations for our .devcontainer(s)._
+
+
+== Repo and Feature Structure
+
+Similar to the {official-repo} repo, this repository has a `src`
+folder.  Each Feature has its own sub-folder, containing at least a
+`devcontainer-feature.json` and an entrypoint script `install.sh`.
+
+```
+├── src
+│   ├── hello
+│   │   ├── devcontainer-feature.json
+│   │   └── install.sh
+│   ├── color
+│   │   ├── devcontainer-feature.json
+│   │   └── install.sh
+|   ├── ...
+│   │   ├── devcontainer-feature.json
+│   │   └── install.sh
+...
+```
+
+An {official-tools}[implementing tool] will composite properties from the
+feature's `devcontainer-feature.json` file, and execute in the `install.sh`
+entrypoint script in the container during build time.  Implementing tools are
+also free to process attributes under the `customizations` property as desired.
+
+=== Options
+
+All available options for a Feature should be declared in the
+`devcontainer-feature.json`.  The syntax for the `options` property can be found
+in the {json-ref}.
+
+For example, the `color` feature provides an enum of three possible options
+(`red`, `gold`, `green`).  If no option is provided in a user's
+`devcontainer.json`, the value is set to "red".
+
+```jsonc
+{
+    // ...
+    "options": {
+        "favorite": {
+            "type": "string",
+            "enum": [
+                "red",
+                "gold",
+                "green"
+            ],
+            "default": "red",
+            "description": "Choose your favorite color."
+        }
+    }
+}
+```
+
+Options are exported as Feature-scoped environment variables.  The option name
+is captialized and sanitized according to {option-resolution}.
+
+```bash
+#!/bin/bash
+
+echo "Activating feature 'color'"
+echo "The provided favorite color is: ${FAVORITE}"
+
+...
+```
+
+== Distributing Features
+
+=== Versioning
+
+Features are individually versioned by the `version` attribute in a Feature's `devcontainer-feature.json`.  Features are versioned according to the semver specification. More details can be found in the official {versioning} docs.
+
+=== Publishing
+
+
+NOTE: The Distribution spec can be found here: {json-ref}
+
+NOTE: While any registry  that implements the {oci-distribution-spec} can be
+used, this template will leverage GHCR (GitHub Container Registry) as the
+backing registry.
+
+Features are meant to be easily sharable units of dev container configuration and installation code.
+
+This repo contains a GitHub Action [workflow](.github/workflows/release.yaml) that will publish each feature to GHCR.  By default, each Feature will be prefixed with the `<owner/<repo>` namespace.  For example, the two Features in this repository can be referenced in a `devcontainer.json` with:
+
+```
+ghcr.io/polis-dev/devc/color:1
+ghcr.io/polis-dev/devc/hello:1
+```
+
+The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/devcontainers/feature-starter`.  This contains information useful for tools aiding in Feature discovery.
+
+'`devcontainers/feature-starter`' is known as the feature collection namespace.
+
+### Marking Feature Public
+
+Note that by default, GHCR packages are marked as `private`.  To stay within the free tier, Features need to be marked as `public`.
+
+This can be done by navigating to the Feature's "package settings" page in GHCR, and setting the visibility to 'public`.  The URL may look something like:
+
+```
+https://github.com/users/<owner>/packages/container/<repo>%2F<featureName>/settings
+```
+
+image::https://user-images.githubusercontent.com/23246594/185244705-232cf86a-bd05-43cb-9c25-07b45b3f4b04.png[GHCR Package Settings,669,669]
+
+=== Adding Features to the Index
+
+If you'd like your Features to appear in our {features-index} so that other
+community members can find them, you can do the following:
+
+* Go to {devcontainers-github-io} (the repo for {containers-dev}).
+* Open a PR to modify the {devcontainer-collection-index} file.
+
+This index is from where {supporting-tools} like {vscode-devcontainers} and {github-codespaces} surface Features for their dev container creation UI.
+
+==== Using private Features in Codespaces
+
+For any Features hosted in GHCR that are kept private, the `GITHUB_TOKEN` access token in your environment will need to have `package:read` and `contents:read` for the associated repository.
+
+Many implementing tools use a broadly scoped access token and will work automatically.  GitHub Codespaces uses repo-scoped tokens, and therefore you'll need to add the permissions in `devcontainer.json`
+
+An example `devcontainer.json` can be found below.
+
+```jsonc
+{
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+     "ghcr.io/polis-dev/devc/hello:1": {
+            "greeting": "Hello"
+        }
+    },
+    "customizations": {
+        "codespaces": {
+            "repositories": {
+                "my-org/private-features": {
+                    "permissions": {
+                        "packages": "read",
+                        "contents": "read"
+                    }
+                }
+            }
+        }
+    }
+}
+```

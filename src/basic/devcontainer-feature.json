@@ -1,0 +1,19 @@
+{
+    "name": "Basic",
+    "id": "basic",
+    "version": "0.1.0",
+    "description": "Basic features for devcontainers, should be included mostly everywhere (except for very specific cases)",
+    "options": {
+        "greeting": {
+            "type": "string",
+            "proposals": [
+                "hey",
+                "hello",
+                "hi",
+                "howdy"
+            ],
+            "default": "hey",
+            "description": "Select a pre-made greeting, or enter your own"
+        }
+    }
+}

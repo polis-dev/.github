@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "name": "Hello, World",
     "description": "A hello world Template",
-    "documentationURL": "https://github.com/devcontainers/template-starter/tree/main/src/hello",
-    "licenseURL": "https://github.com/devcontainers/template-starter/blob/main/LICENSE",
+    "documentationURL": "https://github.com/polis-dev/devc/tree/main/src/hello",
+    "licenseURL": "https://github.com/polis-dev/devc/blob/main/templates/LICENSE",
     "options": {
         "imageVariant": {
             "type": "string",

@@ -49,12 +49,7 @@ endif::[]
 :option-resolution: link:https://containers.dev/implementors/features/#option-resolution[option resolution]
 :versioning: link:https://containers.dev/implementors/features/#versioning[versioning]
 
-= {project-name}
-
-_Customizations for our .devcontainer(s)._
-
-
-== Repo and Feature Structure
+= Features Structure
 
 Similar to the {official-repo} repo, this repository has a `src`
 folder.  Each Feature has its own sub-folder, containing at least a

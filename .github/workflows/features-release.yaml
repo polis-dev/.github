@@ -1,4 +1,4 @@
-name: release
+name: features Release
 on:
   workflow_dispatch:
 

@@ -1,4 +1,4 @@
-name: "templates PR"
+name: "PR:Templates"
 on:
   workflow_call:
   workflow_dispatch:

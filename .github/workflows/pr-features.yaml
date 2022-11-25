@@ -1,9 +1,9 @@
-name: features PR
+name: "PR:Features"
 on:
   workflow_call:
   workflow_dispatch:
   pull_request:
-    paths: 
+    paths:
       - "features/**"
       - "!*.adoc"
       - "!*.md"

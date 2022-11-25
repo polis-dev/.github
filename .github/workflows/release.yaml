@@ -1,29 +1,36 @@
-name: features Release
+name: Release
 on:
   workflow_dispatch:
-
-defaults:
-  run:
-    working-directory: features
+  workflow_call:
 
 jobs:
-  deploy:
+  main:
+    name: ${{ github.workflow }}
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: "Publish Features"
+      - name: publish features.
         uses: devcontainers/action@v1
-        with:
-          publish-features: "true"
-          base-path-to-features: "./src"
-          generate-docs: "true"
-
+        id: publish-features
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish-features: "true"
+          base-path-to-features: "./features/src"
+
+      - name: publish templates.
+        uses: devcontainers/action@v1
+        id: publish-templates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish-templates: "true"
+          base-path-to-templates: "./templates/src"
 
       - name: Create PR for Documentation
+        if: ${{ !always() }}
         id: push_image_info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,15 +1,9 @@
-// More info: https://containers.dev/implementors/json_reference/
 {
     "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18",
     "customizations": {
         "vscode": {
-            "settings": {
-                "extensions.ignoreRecommendations": true,
-                "extensions.webWorker": true
-            },
             "extensions": [
-                "mads-hartmann.bash-ide-vscode",
-                "dbaeumer.vscode-eslint"
+                "mads-hartmann.bash-ide-vscode"
             ]
         }
     },

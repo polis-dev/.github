@@ -12,6 +12,10 @@ on:
       - "*.md"
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: features
+
 jobs:
   test:
     runs-on: ubuntu-latest

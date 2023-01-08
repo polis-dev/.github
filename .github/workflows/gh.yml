@@ -50,7 +50,7 @@ jobs:
       # https://github.com/docker/login-action
       - name: Log into registry ghcr.io
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        uses: docker/login-action@3da7dc6e2b31f99ef2cb9fb4c50fb0971e0d0139
         with:
           registry: ghcr.io
           username: ${{ github.actor }}

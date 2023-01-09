@@ -60,7 +60,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@210d783f42dfbd5492271c72e5f4232408f1d169
+        uses: docker/metadata-action@9e6ae02878038daef2841c9e4bb61e486c726684
         with:
           images: |-
             ghcr.io/${{ github.repository_owner }}/${{ github.workflow }}

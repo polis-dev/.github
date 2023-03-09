@@ -18,13 +18,28 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        features:
-          - color
-          - hello
+        features: [hello]
         baseImage:
           - debian:latest
           - ubuntu:latest
           - mcr.microsoft.com/devcontainers/base:ubuntu
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Install latest devcontainer CLI"
+        run: npm install -g @devcontainers/cli
+
+      - name: "Generating tests for '${{ matrix.features }}' against '${{ matrix.baseImage }}'"
+        run: devcontainer features test -f ${{ matrix.features }} -i ${{ matrix.baseImage }} .
+
+  rusty:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        features: [rusty]
+        baseImage:
+          - mcr.microsoft.com/devcontainers/rust:1-bullseye
     steps:
       - uses: actions/checkout@v2
 

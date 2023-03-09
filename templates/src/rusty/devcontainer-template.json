@@ -1,9 +1,9 @@
 {
-    "id": "color",
-    "version": "1.0.0",
-    "name": "My Favorite Color",
-    "description": "A Template to remind you of your favorite color",
-    "documentationURL": "https://github.com/polis-dev/devc/tree/main/src/color",
+    "id": "rusty",
+    "version": "0.1.0",
+    "name": "Rusty",
+    "description": "A template for rusty things.",
+    "documentationURL": "https://github.com/polis-dev/devc/tree/main/templates/src/rusty",
     "licenseURL": "https://github.com/polis-dev/devc/blob/main/templates/LICENSE",
     "options": {
         "imageVariant": {

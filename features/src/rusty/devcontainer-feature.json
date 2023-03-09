@@ -1,8 +1,8 @@
 {
-    "name": "My Favorite Color",
-    "id": "color",
-    "version": "1.0.3",
-    "description": "A feature to remind you of your favorite color",
+    "name": "Rusty Setup",
+    "id": "rusty",
+    "version": "0.1.0",
+    "description": "Sets up a Rusty project.",
     "options": {
         "favorite": {
             "type": "string",

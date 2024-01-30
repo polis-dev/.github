@@ -76,8 +76,8 @@ Templates are source files packaged together that encode configuration for a com
 This repo contains a GitHub Action [workflow](.github/workflows/release.yaml) that will publish each template to GHCR.  By default, each Template will be prefixed with the `<owner/<repo>` namespace.  For example, the two Templates in this repository can be referenced by an [implementing tool](https://containers.dev/supporting#tools) with:
 
 ```
-ghcr.io/polis-dev/devc/color:latest
-ghcr.io/polis-dev/devc/hello:latest
+ghcr.io/polis-dev/.github/devcontainer/color:latest
+ghcr.io/polis-dev/.github/devcontainer/hello:latest
 ```
 
 The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/polis-dev/devc`. This contains information useful for tools aiding in Template discovery.

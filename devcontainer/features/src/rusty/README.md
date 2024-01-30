@@ -7,6 +7,6 @@ A feature to setup a devcontainer for standard rust work.
 
 ```json
 "features": {
-    "ghcr.io/polis-dev/devc/rusty:1": {}
+    "ghcr.io/polis-dev/.github/devcontainer/rusty:1": {}
 }
 ```

@@ -7,7 +7,7 @@ Provides a _sensible_ set of common tools & utilities.
 
 ```json
 "features": {
-    "ghcr.io/polis-dev/devc/basic:1": {
+    "ghcr.io/polis-dev/.github/devcontainer/basic:1": {
         "version": "latest"
     }
 }

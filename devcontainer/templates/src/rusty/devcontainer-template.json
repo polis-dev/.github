@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "name": "Rusty",
     "description": "A template for rusty things.",
-    "documentationURL": "https://github.com/polis-dev/devc/tree/main/templates/src/rusty",
-    "licenseURL": "https://github.com/polis-dev/devc/blob/main/templates/LICENSE",
+    "documentationURL": "https://github.com/polis-dev/.github/devcontainer/tree/main/templates/src/rusty",
+    "licenseURL": "https://github.com/polis-dev/.github/devcontainer/blob/main/templates/LICENSE",
     "options": {
         "imageVariant": {
             "type": "string",

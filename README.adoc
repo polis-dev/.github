@@ -1,3 +1,0 @@
-= devc
-
-Customizations for our .devcontainer(s).

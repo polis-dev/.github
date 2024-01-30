@@ -1,4 +1,4 @@
-name: "PR:Features"
+name: "PR: devcontainer Features"
 on:
   workflow_call:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 defaults:
   run:
-    working-directory: features
+    working-directory: devcontainer/features
 
 jobs:
   test:

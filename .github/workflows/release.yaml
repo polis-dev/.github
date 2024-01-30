@@ -1,7 +1,11 @@
-name: Release
+name: devcontainer Release
 on:
   workflow_dispatch:
   workflow_call:
+
+defaults:
+  run:
+    working-directory: devcontainer
 
 jobs:
   main:

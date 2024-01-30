@@ -1,14 +1,14 @@
-name: "PR:Templates"
+name: "PR: devcontainer Templates"
 on:
   workflow_call:
   workflow_dispatch:
   pull_request:
     paths:
-      - "templates/**"
+      - "devcontainer/templates/**"
 
 defaults:
   run:
-    working-directory: templates
+    working-directory: devcontainer/templates
 
 jobs:
   detect-changes:
